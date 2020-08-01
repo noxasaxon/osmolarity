@@ -84,7 +84,7 @@ function Item({data, header, update}) {
     return (
         <Row className="Trow">
             <Column_Field>{data.name}</Column_Field>
-            <Column_Field><input type="number" defaultValue={data.num_ccs} onChange={new_value}/></Column_Field>
+            <Column_Field><input type="number" pattern="[0-9]*" min="0" defaultValue={data.num_ccs} onChange={new_value}/></Column_Field>
             {/* <Column_Field> {data.amount} </Column_Field> */}
             {/* <Column_Field>{data.mg_per_ml}</Column_Field> */}
             {/* <Column_Field>{data.msoms_per_ml}</Column_Field> */}
