@@ -13,24 +13,32 @@ const Button = styled.button`
         color: white;
     `}
 `;
-const Container = styled.div`
-    text-align: center;
+
+const Header = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    box-sizing: border-box;
+    border-bottom: 3px solid gray;
 `
 
 const Row = styled.div`
-    /* display: flex; */
-    /* flex-direction: row; */
-    /* flex-grow: 1; */
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    border: 1px solid grey;
+    justify-content: space-between;
 `
 
-const Header = styled.th`
-    /* display: flex; */
-    /* flex-direction: row; */
-    /* flex-grow: 1; */
+
+const Column_Field = styled.div`
+    width: 45%;
+    /* border: 1px solid blue; */
 `
 
 const Input = styled.input``
-
 
 // render(
 //   <Container>
@@ -39,7 +47,7 @@ const Input = styled.input``
 //   </Container>
 // );
 
-function Item({data, header}) {
+function Item({data, header, update}) {
     //     name: "Ascorbic Acid",
     //     amount: 0,
     //     MG_PER_ML: 500,
@@ -49,31 +57,40 @@ function Item({data, header}) {
     //     PRICE_PER_ML : .44,
     //     TOTAL_COST : 0
 
+    const new_value = (event) => {
+        console.log(event)
+        console.log(event.target.value)
+        const chemical = data
+        chemical.num_ccs = parseFloat(event.target.value)
+        update(chemical)
+    }
+
     if (header){
         return (
-            <Header>
-                <span>{data.name}</span>
-                <span> {data.amount} </span>
-                {/* <span>{data.mg_per_ml}</span> */}
-                <span>{data.msoms_per_ml}</span>
-                <span>{data.num_ccs}</span>
-                <span>{data.msom}</span>
-                <span>{data.price_per_ml}</span>
-                <span>{data.total_cost}</span>
+            <Header className="Theader">
+                <Column_Field>{data.name}</Column_Field>
+                <Column_Field>{data.num_ccs}</Column_Field>
+                
+                {/* <Column_Field> {data.amount} </Column_Field> */}
+                {/* <Column_Field>{data.mg_per_ml}</Column_Field> */}
+                {/* <Column_Field>{data.msoms_per_ml}</Column_Field> */}
+                {/* <Column_Field>{data.msom}</Column_Field>
+                <Column_Field>{data.price_per_ml}</Column_Field>
+                <Column_Field>{data.total_cost}</Column_Field> */}
             </Header>
         )
     }
 
     return (
-        <Row>
-            <span>{data.name}</span>
-            <Input value={data.amount}/>
-            {/* <span>{data.mg_per_ml}</span> */}
-            <span>{data.msoms_per_ml}</span>
-            <span>{data.num_ccs}</span>
-            <span>{data.msom}</span>
-            <span>{data.price_per_ml}</span>
-            <span>{data.total_cost}</span>
+        <Row className="Trow">
+            <Column_Field>{data.name}</Column_Field>
+            <Column_Field><input type="number" defaultValue={data.num_ccs} onChange={new_value}/></Column_Field>
+            {/* <Column_Field> {data.amount} </Column_Field> */}
+            {/* <Column_Field>{data.mg_per_ml}</Column_Field> */}
+            {/* <Column_Field>{data.msoms_per_ml}</Column_Field> */}
+            {/* <Column_Field>{data.msom}</Column_Field> */}
+            {/* <Column_Field>{data.price_per_ml}</Column_Field> */}
+            {/* <Column_Field>{data.total_cost}</Column_Field> */}
         </Row>
     );
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Item from './Item';
 import styled, { css } from 'styled-components'
 
@@ -21,16 +21,35 @@ const header_data = {
 }
 
 const Container = styled.div`
-    text-align: center;
+    /* text-align: center; */
+    /* height: 100vh; */
 `
 
 const Table = styled.div`
     /* text-align: center; */
-    display: flex;
-    flex-direction: "column";
+    width: 100%;
+    height: 100%;
+    display: block;
     /* align-items: stretch; */
     /* align-content: stretch;
     justify-content: center; */
+`
+const Total = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    /* border: 1px solid grey; */
+    justify-content: center;
+`
+
+const Divider = styled.br`
+    height: 10px;
+    width: 100%;
+    background: black;
+    border: 2px solid black;
+        display: flex;
+    flex-direction: row;
 `
 
 function Calculator() {
@@ -42,6 +61,12 @@ function Calculator() {
     //     MSOM : 0,
     //     PRICE_PER_ML : .44,
     //     TOTAL_COST : 0
+    const [calc_total_msoms, setCalc_total_msoms] = useState(0);
+    const [calc_total_ccs, setCalc_total_ccs] = useState(0);
+    const [calc_total_cost, setCalc_total_cost] = useState(0);
+    const [calc_osmolarity, setCalc_osmolarity] = useState(0);
+
+
     let chemicals = [
         {
             name: "Ascorbic Acid",
@@ -195,13 +220,15 @@ function Calculator() {
         }
     ]
 
+
+
     function update_and_calculate(new_chemical) {
         let additives = 0
         let total_msoms = 0
         let total_cost = 0.0
         let osmolarity = 0
 
-        for (let i = 0; i < chemicals.length(); i++) {
+        for (let i = 0; i < chemicals.length; i++) {
 
             if (chemicals[i].name === new_chemical.name){
                 chemicals[i] = new_chemical
@@ -210,9 +237,10 @@ function Calculator() {
             const chem = chemicals[i]
 
             chem.msom = chem.msom_per_ml * chem.num_ccs
+            chem.amount = chem.mg_per_ml * chem.num_ccs
             chem.total_cost = chem.price_per_ml * chem.num_ccs
 
-
+            if (chem.num_ccs != 0) console.log(chem.num_ccs)
             additives += chem.num_ccs
             total_msoms += chem.msom
             total_cost += chem.total_cost
@@ -220,21 +248,26 @@ function Calculator() {
 
         osmolarity = (total_msoms / additives) * 1000
 
-        return {
-            // chemicals,
-            total_msoms,
-            total_cost,
-            osmolarity
-        }
+
+        setCalc_osmolarity(osmolarity)
+        setCalc_total_msoms(total_msoms)
+        setCalc_total_ccs(additives)
+        setCalc_total_cost(total_cost)
     }
 
-
+    console.log(calc_osmolarity)
+    console.log(calc_total_ccs)
     return (
         <Container className="Calculator">
-            <Table>
+            <Table className="Table">
                 <Item header data={header_data} />
                 {chemicals.map(item => <Item data={item} update={update_and_calculate}/>)}
             </Table>
+            <Divider className="Divider"/>
+            {/* <Total className="Total"/> */}
+            <Total className="Total">  <span> Total Additives : </span> <span>{calc_total_ccs}</span></Total>
+            <Total className="Total">  <span> Total MSOMs : </span> <span>{calc_total_msoms}</span></Total>
+            <Total primary className="Total"> <span> Osmolarity : </span> <span>{calc_osmolarity.toFixed(2)}</span></Total>
         </Container>
     );
 }
