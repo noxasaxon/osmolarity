@@ -37,6 +37,7 @@ const Total = styled.div`
     flex-direction: row;
     box-sizing: border-box;
     justify-content: center;
+    border-bottom: 1px solid lightblue;
     ${props => props.primary && css`
         padding: 3px;
         font-weight: bold;
@@ -44,11 +45,12 @@ const Total = styled.div`
     `}
 `
 
-const TotalItem = styled.p`
+const TotalItem = styled.div`
+    width: 30%;
     ${props => props.label && css`
-        padding: 3px;
+        /* padding: 3px; */
         font-weight: bold;
-        border-bottom: 3px solid black;
+        /* border-bottom: 3px solid black; */
     `}
 `
 
@@ -262,13 +264,13 @@ function Calculator() {
         <Container className="Calculator">
             <Table striped className="Table">
                 <Item header data={header_data} />
-                {chemicals.map((item, i) => <Item key={i} data={item} update={update_and_calculate}/>)}
+                {chemicals.map((item, i) => <Item key={i} index={i} data={item} update={update_and_calculate}/>)}
             </Table>
             <Divider className="Divider"/>
 
-            <Total className="Total">  <span> Total Additives:   </span> <span>{calc_total_ccs}</span></Total>
-            <Total className="Total">  <span> Total MSOMs:   </span> <span>{calc_total_msoms.toFixed(2)}</span></Total>
-            <Total primary className="Total"> <span> Osmolarity:   </span> <span>{calc_osmolarity.toFixed(2)}</span></Total>
+            <Total className="Total">  <TotalItem label> Additives:   </TotalItem> <TotalItem>{calc_total_ccs}</TotalItem></Total>
+            <Total className="Total">  <TotalItem label> Total MSOMs:   </TotalItem> <TotalItem>{calc_total_msoms.toFixed(2)}</TotalItem></Total>
+            <Total primary className="Total"> <TotalItem label> Osmolarity:   </TotalItem> <TotalItem>{calc_osmolarity.toFixed(2)}</TotalItem></Total>
         </Container>
     );
 }

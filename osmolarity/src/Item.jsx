@@ -8,6 +8,8 @@ const Row = styled.div`
     box-sizing: border-box;
     border: 1px solid grey;
     justify-content: space-around;
+    
+    /* background: ${props => props.index % 2 === 0 ? 'white' : 'lightyellow'}; */
     ${props => props.header && css`
         padding: 3px;
         font-weight: bold;
@@ -37,8 +39,9 @@ const Input_Column = styled.input`
 `
 
 
-function Item( {data, header, update} ) {
-
+function Item( {data, header, update, index} ) {
+    console.log(index)
+    console.log(index % 2 === 0)
     const new_value = (event) => {
         const chemical = data
         let new_ccs = parseFloat(event.target.value)
