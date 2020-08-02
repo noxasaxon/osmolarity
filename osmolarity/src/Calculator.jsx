@@ -21,14 +21,13 @@ const header_data = {
 }
 
 const Container = styled.div`
+    width: 100%;
     max-width: 850px;
     box-sizing: border-box;
 `
 
 const Table = styled.div`
-    /* text-align: center; */
     width: 100%;
-    /* height: 100%; */
     display: block;
 `
 const Total = styled.div`
@@ -53,6 +52,27 @@ const TotalItem = styled.div`
         /* padding: 3px; */
         font-weight: bold;
         /* border-bottom: 3px solid black; */
+    `}
+    ${props => props.header_item && css`
+        width: 100%;
+        max-width: none;
+        font-weight: bold;
+        border-bottom: 0;
+        /* border-bottom: 3px solid black; */
+    `}
+`
+
+const HeaderTotal = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    justify-content: center;
+    
+    ${props => props.primary && css`
+        padding: 3px;
+        font-weight: bold;
+        border-bottom: 3px solid black;
     `}
 `
 
@@ -266,6 +286,7 @@ function Calculator() {
 
     return (
         <Container className="Calculator">
+            <HeaderTotal primary className="Total"> <TotalItem primary label header_item> CC's: {calc_total_ccs} | MSOMs: {calc_total_msoms.toFixed(2)} | Osmo:  {calc_osmolarity.toFixed(2)} </TotalItem> </HeaderTotal>
             <Table striped className="Table">
                 <Item header data={header_data} />
                 {chemicals.map((item, i) => <Item key={i} index={i} data={item} update={update_and_calculate}/>)}
