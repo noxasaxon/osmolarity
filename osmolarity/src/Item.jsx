@@ -17,17 +17,23 @@ const Row = styled.div`
 `
 
 const Text_Column = styled.div`
-    width: 30%;
+    width: 20%;
     ${props => props.input_label && css`
-        width: 40px;
+        /* width: 30px; */
+        width: 10%;
     `}
     ${props => props.header && css`
         font-weight: bold;
     `}
+    ${props => props.ingredients_label && css`
+        /* min-width: 105px; */
+        width:30%;
+    `}
 `
 
 const Input_Column = styled.input`
-    width: 40px;
+    width: 10%;
+    /* width: 30px; */
 `
 
 
@@ -45,7 +51,7 @@ function Item( {data, header, update} ) {
         return (
             <Row header className="Theader">
                 <Text_Column header >{data.name}</Text_Column>
-                <Text_Column header>{data.mg_per_ml}</Text_Column>
+                <Text_Column header ingredients_label>{data.mg_per_ml}</Text_Column>
                 <Text_Column header>{data.msoms_per_ml}</Text_Column>
                 <Text_Column header input_label>{data.num_ccs}</Text_Column>
                 <Text_Column header>{data.msom}</Text_Column>
@@ -57,9 +63,9 @@ function Item( {data, header, update} ) {
 
     return (
         <Row className="Trow">
-            <Text_Column>{data.name}</Text_Column>
+            <Text_Column header>{data.name}</Text_Column>
             
-            <Text_Column>{data.mg_per_ml}</Text_Column>
+            <Text_Column ingredients_label>{data.mg_per_ml}</Text_Column>
             <Text_Column>{data.msoms_per_ml}</Text_Column>
             <Input_Column type="number" pattern="[0-9]*" min="0" defaultValue='' onChange={new_value}/>
             <Text_Column>{data.msom}</Text_Column>

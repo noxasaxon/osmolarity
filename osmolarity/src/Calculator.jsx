@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import Item from './Item';
 import styled, { css } from 'styled-components'
 
-export const MG_PER_ML_NAME = "mg per ml"
-export const MSOM_PER_ML_NAME = "msoms / ml"
-export const NUM_CCs_NAME = "#cc's"
+export const MG_PER_ML_NAME = "mg/ml"
+export const MSOM_PER_ML_NAME = "msom/ml"
+export const NUM_CCs_NAME = "cc's"
 export const MSOM_NAME = "msom"
-export const PRICE_PER_ML_NAME = "price per ml"
+export const PRICE_PER_ML_NAME = "price/ml"
 export const TOTAL_COST_NAME = "Total Cost"
 
 const header_data = {
@@ -21,12 +21,14 @@ const header_data = {
 }
 
 const Container = styled.div`
+    max-width: 850px;
+    box-sizing: border-box;
 `
 
 const Table = styled.div`
     /* text-align: center; */
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
     display: block;
 `
 const Total = styled.div`
@@ -204,8 +206,6 @@ function Calculator() {
         {
             name: "Amino blend",
             amount: 0,
-            // mg_per_ml: "Glutamine 30 m/Ornithine 50 mg/Arginine 100 mg/lysine 50 mg/Citrulline 50 mg/Levocarnitine 100 mg",
-            // mg_per_ml: "Glutamine-30mg / Ornithine-50mg / Arginine-100mg / lysine-50mg / Citrulline-50mg / Levocarnitine-100mg",
             mg_per_ml: "Glutamine-30 | Ornithine-50 | Arginine-100 | lysine-50 | Citrulline-50 | Levocarnitine-100",
             mg_per_ml: "Glutamine-30, Ornithine-50, Arginine-100, lysine-50, Citrulline-50, Levocarnitine-100",
             msoms_per_ml : 4.4,

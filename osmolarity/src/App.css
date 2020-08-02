@@ -1,5 +1,10 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  
+  max-height: 99vh;
 }
 
 .App-logo {
