@@ -37,7 +37,7 @@ const Total = styled.div`
     flex-direction: row;
     box-sizing: border-box;
     justify-content: center;
-    border-bottom: 1px solid lightblue;
+    
     ${props => props.primary && css`
         padding: 3px;
         font-weight: bold;
@@ -47,6 +47,8 @@ const Total = styled.div`
 
 const TotalItem = styled.div`
     width: 30%;
+    max-width: 110px;
+    border-bottom: 1px solid lightblue;
     ${props => props.label && css`
         /* padding: 3px; */
         font-weight: bold;
@@ -241,6 +243,8 @@ function Calculator() {
             }
 
             const chem = chemicals[i]
+            if (Number.isNaN(chem.num_ccs)) chem.num_ccs = 0
+
             chem.msom = chem.msoms_per_ml * chem.num_ccs
             chem.amount = chem.mg_per_ml * chem.num_ccs
             chem.total_cost = chem.price_per_ml * chem.num_ccs
@@ -270,7 +274,7 @@ function Calculator() {
 
             <Total className="Total">  <TotalItem label> Additives:   </TotalItem> <TotalItem>{calc_total_ccs}</TotalItem></Total>
             <Total className="Total">  <TotalItem label> Total MSOMs:   </TotalItem> <TotalItem>{calc_total_msoms.toFixed(2)}</TotalItem></Total>
-            <Total primary className="Total"> <TotalItem label> Osmolarity:   </TotalItem> <TotalItem>{calc_osmolarity.toFixed(2)}</TotalItem></Total>
+            <Total primary className="Total"> <TotalItem primary label> Osmolarity:   </TotalItem> <TotalItem>{calc_osmolarity.toFixed(2)}</TotalItem></Total>
         </Container>
     );
 }

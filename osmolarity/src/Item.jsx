@@ -45,8 +45,8 @@ function Item( {data, header, update, index} ) {
     const new_value = (event) => {
         const chemical = data
         let new_ccs = parseFloat(event.target.value)
-
-        chemical.num_ccs = new_ccs
+        if (Number.isNaN(new_ccs)) new_ccs = 0;
+        chemical.num_ccs = new_ccs;
         update(chemical)
     }
 
