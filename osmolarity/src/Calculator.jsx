@@ -72,15 +72,14 @@ const HeaderTotal = styled.div`
     ${props => props.primary && css`
         padding: 3px;
         font-weight: bold;
-        border-bottom: 3px solid black;
+        border-bottom: 1px solid black;
     `}
 `
 
 const Divider = styled.div`
-    height: 10px;
+    height: 5px;
     width: 100%;
     background: black;
-    border: 2px solid black;
 `
 
 function Calculator() {

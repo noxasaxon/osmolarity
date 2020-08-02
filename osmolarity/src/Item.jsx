@@ -13,6 +13,7 @@ const Row = styled.div`
     ${props => props.header && css`
         padding: 3px;
         font-weight: bold;
+        border: none;
         border-bottom: 3px solid black;
         background-color: lightblue;
     `}
