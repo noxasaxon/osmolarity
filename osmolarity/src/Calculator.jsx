@@ -13,7 +13,7 @@ const header_data = {
     name: "NAME",
     amount: "AMOUNT",
     mg_per_ml: MG_PER_ML_NAME,
-    msom_per_ml : MSOM_PER_ML_NAME,
+    msoms_per_ml : MSOM_PER_ML_NAME,
     num_ccs : NUM_CCs_NAME,
     msom : MSOM_NAME,
     price_per_ml : PRICE_PER_ML_NAME,
@@ -21,8 +21,6 @@ const header_data = {
 }
 
 const Container = styled.div`
-    /* text-align: center; */
-    /* height: 100vh; */
 `
 
 const Table = styled.div`
@@ -30,26 +28,33 @@ const Table = styled.div`
     width: 100%;
     height: 100%;
     display: block;
-    /* align-items: stretch; */
-    /* align-content: stretch;
-    justify-content: center; */
 `
 const Total = styled.div`
     width: 100%;
     display: flex;
     flex-direction: row;
     box-sizing: border-box;
-    /* border: 1px solid grey; */
     justify-content: center;
+    ${props => props.primary && css`
+        padding: 3px;
+        font-weight: bold;
+        border-bottom: 3px solid black;
+    `}
 `
 
-const Divider = styled.br`
+const TotalItem = styled.p`
+    ${props => props.label && css`
+        padding: 3px;
+        font-weight: bold;
+        border-bottom: 3px solid black;
+    `}
+`
+
+const Divider = styled.div`
     height: 10px;
     width: 100%;
     background: black;
     border: 2px solid black;
-        display: flex;
-    flex-direction: row;
 `
 
 function Calculator() {
@@ -70,7 +75,7 @@ function Calculator() {
             name: "Ascorbic Acid",
             amount: 0,
             mg_per_ml: 500,
-            msom_per_ml : 6.05,
+            msoms_per_ml : 6.05,
             num_ccs : 0,
             msom : 0,
             price_per_ml : .44,
@@ -80,7 +85,7 @@ function Calculator() {
             name: "Magnesium Chloride",
             amount: 0,
             mg_per_ml: 200,
-            msom_per_ml : 2.95,
+            msoms_per_ml : 2.95,
             num_ccs : 0,
             msom : 0,
             price_per_ml : 1.63,
@@ -90,7 +95,7 @@ function Calculator() {
             name: "Calcium Chloride",
             amount: 0,
             mg_per_ml: 100,
-            msom_per_ml : 2.04,
+            msoms_per_ml : 2.04,
             num_ccs : 0,
             msom : 0,
             price_per_ml : 1.63,
@@ -100,7 +105,7 @@ function Calculator() {
             name: "B-complex",
             amount: 0,
             mg_per_ml: 100,
-            msom_per_ml : 2.04,
+            msoms_per_ml : 2.04,
             num_ccs : 0,
             msom : 0,
             price_per_ml : 1.63,
@@ -110,7 +115,7 @@ function Calculator() {
             name: "B6",
             amount: 0,
             mg_per_ml: 100,
-            msom_per_ml : 1.6,
+            msoms_per_ml : 1.6,
             num_ccs : 0,
             msom : 0,
             price_per_ml : 1.63,
@@ -120,7 +125,7 @@ function Calculator() {
             name: "B5",
             amount: 0,
             mg_per_ml: 250,
-            msom_per_ml : 1.36,
+            msoms_per_ml : 1.36,
             num_ccs : 0,
             msom : 0,
             price_per_ml : 1.63,
@@ -130,7 +135,7 @@ function Calculator() {
             name: "B12",
             amount: 0,
             mg_per_ml: 5,
-            msom_per_ml : 2,
+            msoms_per_ml : 2,
             num_ccs : 0,
             msom : 0,
             price_per_ml : 1.63,
@@ -140,7 +145,7 @@ function Calculator() {
             name: "Taurine",
             amount: 0,
             mg_per_ml: 50,
-            msom_per_ml : 0.95,
+            msoms_per_ml : 0.95,
             num_ccs : 0,
             msom : 0,
             price_per_ml : 1.63,
@@ -150,7 +155,7 @@ function Calculator() {
             name: "Zinc Chloride",
             amount: 0,
             mg_per_ml: 10,
-            msom_per_ml : 0.21,
+            msoms_per_ml : 0.21,
             num_ccs : 0,
             msom : 0,
             price_per_ml : 1.63,
@@ -160,7 +165,7 @@ function Calculator() {
             name: "Selenium",
             amount: 0,
             mg_per_ml: 0.2,
-            msom_per_ml : 0.1,
+            msoms_per_ml : 0.1,
             num_ccs : 0,
             msom : 0,
             price_per_ml : 1.63,
@@ -170,7 +175,7 @@ function Calculator() {
             name: "Alpha Lipoic Acid",
             amount: 0,
             mg_per_ml: 25,
-            msom_per_ml : 0.12,
+            msoms_per_ml : 0.12,
             num_ccs : 0,
             msom : 0,
             price_per_ml : 1.63,
@@ -180,7 +185,7 @@ function Calculator() {
             name: "L-arginine",
             amount: 0,
             mg_per_ml: 200,
-            msom_per_ml : 3.02,
+            msoms_per_ml : 3.02,
             num_ccs : 0,
             msom : 0,
             price_per_ml : 1.63,
@@ -190,7 +195,7 @@ function Calculator() {
             name: "L-carnitine",
             amount: 0,
             mg_per_ml: 500,
-            msom_per_ml : 10.05,
+            msoms_per_ml : 10.05,
             num_ccs : 0,
             msom : 0,
             price_per_ml : 1.63,
@@ -199,8 +204,11 @@ function Calculator() {
         {
             name: "Amino blend",
             amount: 0,
-            mg_per_ml: "Glutamine 30 m/Ornithine 50 mg/Arginine 100 mg/lysine 50 mg/Citrulline 50 mg/Levocarnitine 100 mg",
-            msom_per_ml : 4.4,
+            // mg_per_ml: "Glutamine 30 m/Ornithine 50 mg/Arginine 100 mg/lysine 50 mg/Citrulline 50 mg/Levocarnitine 100 mg",
+            // mg_per_ml: "Glutamine-30mg / Ornithine-50mg / Arginine-100mg / lysine-50mg / Citrulline-50mg / Levocarnitine-100mg",
+            mg_per_ml: "Glutamine-30 | Ornithine-50 | Arginine-100 | lysine-50 | Citrulline-50 | Levocarnitine-100",
+            mg_per_ml: "Glutamine-30, Ornithine-50, Arginine-100, lysine-50, Citrulline-50, Levocarnitine-100",
+            msoms_per_ml : 4.4,
             num_ccs : 0,
             msom : 0,
             price_per_ml : 1.63,
@@ -210,7 +218,7 @@ function Calculator() {
             name: "Biotin",
             amount: 0,
             mg_per_ml: 0.5,
-            msom_per_ml : 0.011,
+            msoms_per_ml : 0.011,
             num_ccs : 0,
             msom : 0,
             price_per_ml : 2.50,
@@ -226,14 +234,12 @@ function Calculator() {
         let osmolarity = 0
 
         for (let i = 0; i < chemicals.length; i++) {
-
             if (chemicals[i].name === new_chemical.name){
                 chemicals[i] = new_chemical
             }
 
             const chem = chemicals[i]
-
-            chem.msom = chem.msom_per_ml * chem.num_ccs
+            chem.msom = chem.msoms_per_ml * chem.num_ccs
             chem.amount = chem.mg_per_ml * chem.num_ccs
             chem.total_cost = chem.price_per_ml * chem.num_ccs
 
@@ -241,11 +247,9 @@ function Calculator() {
             total_msoms += chem.msom
             total_cost += chem.total_cost
         }
-        console.log(total_msoms)
-        console.log(additives)
+
         osmolarity = (total_msoms / additives) * 1000
         if (Number.isNaN(osmolarity)) osmolarity = 0;
-
 
         setCalc_osmolarity(osmolarity)
         setCalc_total_msoms(total_msoms)
@@ -256,15 +260,15 @@ function Calculator() {
 
     return (
         <Container className="Calculator">
-            <Table className="Table">
+            <Table striped className="Table">
                 <Item header data={header_data} />
-                {chemicals.map(item => <Item data={item} update={update_and_calculate}/>)}
+                {chemicals.map((item, i) => <Item key={i} data={item} update={update_and_calculate}/>)}
             </Table>
             <Divider className="Divider"/>
-            {/* <Total className="Total"/> */}
-            <Total className="Total">  <span> Total Additives : </span> <span>{calc_total_ccs}</span></Total>
-            <Total className="Total">  <span> Total MSOMs : </span> <span>{calc_total_msoms.toFixed(2)}</span></Total>
-            <Total primary className="Total"> <span> Osmolarity : </span> <span>{calc_osmolarity.toFixed(2)}</span></Total>
+
+            <Total className="Total">  <span> Total Additives:   </span> <span>{calc_total_ccs}</span></Total>
+            <Total className="Total">  <span> Total MSOMs:   </span> <span>{calc_total_msoms.toFixed(2)}</span></Total>
+            <Total primary className="Total"> <span> Osmolarity:   </span> <span>{calc_osmolarity.toFixed(2)}</span></Total>
         </Container>
     );
 }

@@ -1,61 +1,37 @@
 import React from 'react';
 import styled, { css } from 'styled-components'
 
-const Button = styled.button`
-    background: transparent;
-    border-radius: 3px;
-    border: 2px solid palevioletred;
-    color: palevioletred;
-    margin: 0.5em 1em;
-    padding: 0.25em 1em;
-    ${props => props.primary && css`
-        background: palevioletred;
-        color: white;
-    `}
-`;
-
-const Header = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    box-sizing: border-box;
-    border-bottom: 3px solid gray;
-`
-
 const Row = styled.div`
     width: 100%;
     display: flex;
     flex-direction: row;
     box-sizing: border-box;
     border: 1px solid grey;
-    justify-content: space-between;
+    justify-content: space-around;
+    ${props => props.header && css`
+        padding: 3px;
+        font-weight: bold;
+        border-bottom: 3px solid black;
+        background-color: lightblue;
+    `}
+`
+
+const Text_Column = styled.div`
+    width: 30%;
+    ${props => props.input_label && css`
+        width: 40px;
+    `}
+    ${props => props.header && css`
+        font-weight: bold;
+    `}
+`
+
+const Input_Column = styled.input`
+    width: 40px;
 `
 
 
-const Column_Field = styled.div`
-    width: 45%;
-    /* border: 1px solid blue; */
-`
-
-const Input = styled.input``
-
-// render(
-//   <Container>
-//     <Button>Normal Button</Button>
-//     <Button primary>Primary Button</Button>
-//   </Container>
-// );
-
-function Item({data, header, update}) {
-    //     name: "Ascorbic Acid",
-    //     amount: 0,
-    //     MG_PER_ML: 500,
-    //     MSOM_PER_ML : 6.05,
-    //     NUM_CCs : 0,
-    //     MSOM : 0,
-    //     PRICE_PER_ML : .44,
-    //     TOTAL_COST : 0
+function Item( {data, header, update} ) {
 
     const new_value = (event) => {
         const chemical = data
@@ -67,30 +43,28 @@ function Item({data, header, update}) {
 
     if (header){
         return (
-            <Header className="Theader">
-                <Column_Field>{data.name}</Column_Field>
-                <Column_Field>{data.num_ccs}</Column_Field>
-                
-                {/* <Column_Field> {data.amount} </Column_Field> */}
-                {/* <Column_Field>{data.mg_per_ml}</Column_Field> */}
-                {/* <Column_Field>{data.msoms_per_ml}</Column_Field> */}
-                {/* <Column_Field>{data.msom}</Column_Field>
-                <Column_Field>{data.price_per_ml}</Column_Field>
-                <Column_Field>{data.total_cost}</Column_Field> */}
-            </Header>
+            <Row header className="Theader">
+                <Text_Column header >{data.name}</Text_Column>
+                <Text_Column header>{data.mg_per_ml}</Text_Column>
+                <Text_Column header>{data.msoms_per_ml}</Text_Column>
+                <Text_Column header input_label>{data.num_ccs}</Text_Column>
+                <Text_Column header>{data.msom}</Text_Column>
+                {/* <Text_Column header>{data.price_per_ml}</Text_Column>
+                <Text_Column header>{data.total_cost}</Text_Column> */}
+            </Row>
         )
     }
 
     return (
         <Row className="Trow">
-            <Column_Field>{data.name}</Column_Field>
-            <Column_Field><input type="number" pattern="[0-9]*" min="0" defaultValue='' onChange={new_value}/></Column_Field>
-            {/* <Column_Field> {data.amount} </Column_Field> */}
-            {/* <Column_Field>{data.mg_per_ml}</Column_Field> */}
-            {/* <Column_Field>{data.msoms_per_ml}</Column_Field> */}
-            {/* <Column_Field>{data.msom}</Column_Field> */}
-            {/* <Column_Field>{data.price_per_ml}</Column_Field> */}
-            {/* <Column_Field>{data.total_cost}</Column_Field> */}
+            <Text_Column>{data.name}</Text_Column>
+            
+            <Text_Column>{data.mg_per_ml}</Text_Column>
+            <Text_Column>{data.msoms_per_ml}</Text_Column>
+            <Input_Column type="number" pattern="[0-9]*" min="0" defaultValue='' onChange={new_value}/>
+            <Text_Column>{data.msom}</Text_Column>
+            {/* <Text_Column>{data.price_per_ml}</Text_Column> */}
+            {/* <Text_Column>{data.total_cost}</Text_Column> */}
         </Row>
     );
 }
