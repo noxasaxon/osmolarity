@@ -65,9 +65,7 @@ function Calculator() {
     const [calc_total_ccs, setCalc_total_ccs] = useState(0);
     const [calc_total_cost, setCalc_total_cost] = useState(0);
     const [calc_osmolarity, setCalc_osmolarity] = useState(0);
-
-
-    let chemicals = [
+    const [chemicals, setChemicals] = useState([
         {
             name: "Ascorbic Acid",
             amount: 0,
@@ -218,8 +216,7 @@ function Calculator() {
             price_per_ml : 2.50,
             total_cost : 0
         }
-    ]
-
+    ])
 
 
     function update_and_calculate(new_chemical) {
@@ -240,23 +237,23 @@ function Calculator() {
             chem.amount = chem.mg_per_ml * chem.num_ccs
             chem.total_cost = chem.price_per_ml * chem.num_ccs
 
-            if (chem.num_ccs != 0) console.log(chem.num_ccs)
             additives += chem.num_ccs
             total_msoms += chem.msom
             total_cost += chem.total_cost
         }
-
+        console.log(total_msoms)
+        console.log(additives)
         osmolarity = (total_msoms / additives) * 1000
+        if (Number.isNaN(osmolarity)) osmolarity = 0;
 
 
         setCalc_osmolarity(osmolarity)
         setCalc_total_msoms(total_msoms)
         setCalc_total_ccs(additives)
         setCalc_total_cost(total_cost)
+        setChemicals(chemicals)
     }
 
-    console.log(calc_osmolarity)
-    console.log(calc_total_ccs)
     return (
         <Container className="Calculator">
             <Table className="Table">
@@ -266,7 +263,7 @@ function Calculator() {
             <Divider className="Divider"/>
             {/* <Total className="Total"/> */}
             <Total className="Total">  <span> Total Additives : </span> <span>{calc_total_ccs}</span></Total>
-            <Total className="Total">  <span> Total MSOMs : </span> <span>{calc_total_msoms}</span></Total>
+            <Total className="Total">  <span> Total MSOMs : </span> <span>{calc_total_msoms.toFixed(2)}</span></Total>
             <Total primary className="Total"> <span> Osmolarity : </span> <span>{calc_osmolarity.toFixed(2)}</span></Total>
         </Container>
     );

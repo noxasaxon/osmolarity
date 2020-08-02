@@ -58,10 +58,10 @@ function Item({data, header, update}) {
     //     TOTAL_COST : 0
 
     const new_value = (event) => {
-        console.log(event)
-        console.log(event.target.value)
         const chemical = data
-        chemical.num_ccs = parseFloat(event.target.value)
+        let new_ccs = parseFloat(event.target.value)
+
+        chemical.num_ccs = new_ccs
         update(chemical)
     }
 
